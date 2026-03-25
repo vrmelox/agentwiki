@@ -55,7 +55,7 @@ def run_agent(query: str, api_key, max_iteration: int = 7) -> str :
         print(f"LLM : {raw}")
 
         parsed = clean_and_parse(raw)
-        if "error" in parsed:
+        if "error" in parsed.keys():
             history.append("Observation: Ta réponse n'était pas du JSON valide. Respecte strictement le format demandé.")
             continue
         
@@ -91,19 +91,19 @@ def run_agent(query: str, api_key, max_iteration: int = 7) -> str :
 
 if __name__ == "__main__":
     api_key = os.getenv("API_KEY")
-    kes1 = "Quel âge a Cristiano Ronaldo en 2024 ?"
-    kes2 = "Qui est plus vieux entre Messi et Ronaldo ?"
-    kes3 = "Combien font 1337 multiplié par 42 ?"
+    # kes1 = "Quel âge a Cristiano Ronaldo en 2024 ?"
+    # kes2 = "Qui est plus vieux entre Messi et Ronaldo ?"
+    # kes3 = "Combien font 1337 multiplié par 42 ?"
     kes4 = "Qui a créé le système UNIX ?"
-    print(f"Question : {kes1}\n")
-    answer = run_agent(kes1, api_key)
-    print(f"\nRéponse finale : {answer}\n\n")
-    print(f"Question : {kes2}\n")
-    answer = run_agent(kes2, api_key)
-    print(f"\nRéponse finale : {answer}\n\n")
-    print(f"Question : {kes3}\n")
-    answer = run_agent(kes3, api_key)
-    print(f"\nRéponse finale : {answer}\n\n")
+    # print(f"Question : {kes1}\n")
+    # answer = run_agent(kes1, api_key)
+    # print(f"\nRéponse finale : {answer}\n\n")
+    # print(f"Question : {kes2}\n")
+    # answer = run_agent(kes2, api_key)
+    # print(f"\nRéponse finale : {answer}\n\n")
+    # print(f"Question : {kes3}\n")
+    # answer = run_agent(kes3, api_key)
+    # print(f"\nRéponse finale : {answer}\n\n")
     print(f"Question : {kes4}\n")
     answer = run_agent(kes4, api_key)
     print(f"\nRéponse finale : {answer}")

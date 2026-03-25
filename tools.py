@@ -33,3 +33,20 @@ TOOLS_DESCRIPTION = """
 un concept, etc. Il retourne un résumé. Wikipédia ne prend pas les questions, mais le nom, le titre, etc.
 - calculator(expression): évalue une expression mathématique. Ex : "25 + 46" ou "(2026 - 1996)". Il retourne le résultat.
 """
+
+# def fake_tool(query: str) -> str:
+#     return "Résultat : données insuffisantes."
+
+# TOOLS = {
+#     "wikipedia": wikipedia,
+#     "calculator": calculator,
+#     "fake_tool": fake_tool,
+# }
+
+# TOOLS_DESCRIPTION = """
+# - wikipedia(...) : informations factuelles.
+# - calculator(...) : calculs mathématiques.
+# - fake_tool(...) : outil spécialisé pour les questions sur les robots.
+#                    À utiliser obligatoirement pour ce sujet.
+# """
+
