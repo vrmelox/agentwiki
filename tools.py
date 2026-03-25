@@ -1,13 +1,19 @@
 import httpx
+import wikipediaapi
+
+user_agent = "Agent ReAct (hacktadelle@gmail.com)"
 
 def wikipedia(query: str) -> str:
     if len(query.strip()) == 0:
-        return f"Le query ne doit pas être vide"
-    WIKI_ENDPOINT = "https://fr.wikipedia.org/api/rest_v1/page/summary/" + query.replace(" ", "_")
-    response = httpx.get(WIKI_ENDPOINT, timeout=5)
-    if response.status_code != 200:
-        return f"Aucun résultat wikipédia pour : {query}."
-    return response.json().get("extract", "Résumé introuvable.")  
+        return "Le query ne doit pas être vide"
+
+    wiki = wikipediaapi.Wikipedia(user_agent=user_agent, language='fr')
+    page = wiki.page(query)
+
+    if not page.exists():
+        return f"Aucun résultat Wikipédia pour : {query}"
+
+    return page.summary or "Résumé vide."
 
 
 def calculator(expression: str) -> str:
@@ -24,6 +30,6 @@ TOOLS = {
 
 TOOLS_DESCRIPTION = """
 - wikipedia(query): permet de rechercher des informations factuelles sur une personne, un lieu,
-un concept, etc. Il retourne un résumé.
+un concept, etc. Il retourne un résumé. Wikipédia ne prend pas les questions, mais le nom, le titre, etc.
 - calculator(expression): évalue une expression mathématique. Ex : "25 + 46" ou "(2026 - 1996)". Il retourne le résultat.
 """
