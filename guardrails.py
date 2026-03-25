@@ -16,3 +16,5 @@ def clean_and_parse(raw: str) -> dict:
     
     return result
 
+def is_repeated_action(action_key: str, seen: set) -> bool:
+    return action_key in seen
