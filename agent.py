@@ -1,6 +1,6 @@
 import anthropic
 from tools import TOOLS_DESCRIPTION, TOOLS
-from guardrails import clean_and_parse
+from guardrails import clean_and_parse, is_repeated_action
 import json
 import os
 from dotenv import load_dotenv
@@ -38,6 +38,7 @@ def ask_llm(prompt: str, api_key) -> str :
 def run_agent(query: str, api_key, max_iteration: int = 7) -> str : 
     history = []
     iteration = 0
+    seens = set()
 
     while iteration < max_iteration:
         iteration += 1
@@ -67,6 +68,12 @@ def run_agent(query: str, api_key, max_iteration: int = 7) -> str :
         if "action" in parsed:
             tool_name = parsed["action"].get("name")
             tool_input = parsed["action"].get("input", query)
+            new_action = f"{tool_name}:{tool_input}"
+
+            if is_repeated_action(new_action, seens):
+                history.append("Observation: Tu viens de répéter exactement la même action. Tu tournes en rond. Essaie une approche différente ou donne ta réponse finale maintenant.")
+                continue
+            seens.add(new_action)
 
             history.append(f"Action: {tool_name}({tool_input})")
 
