@@ -1,6 +1,6 @@
 import anthropic
 from tools import TOOLS_DESCRIPTION, TOOLS
-from guardrails import clean_and_parse, is_repeated_action
+from guardrails import clean_and_parse, is_repeated_action, truncate
 import json
 import os
 from dotenv import load_dotenv
@@ -83,6 +83,7 @@ def run_agent(query: str, api_key, max_iteration: int = 7) -> str :
                 result = f"Outil inconnu: '{tool_name}'. Outils disponibles : {list(TOOLS.keys())}"
             
             observation = f"Observation: {result}"
+            observation = truncate(observation)
             history.append(observation)
             print(f"Outil exécuté: {observation}")
             continue

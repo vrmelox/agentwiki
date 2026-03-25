@@ -19,3 +19,8 @@ def clean_and_parse(raw: str) -> dict:
 def is_repeated_action(action_key: str, seen: set) -> bool:
     return action_key in seen
 
+
+def truncate(text: str, max_chars: int = 800) -> str:
+    if len(text) > max_chars :
+        return f"{text[:800]} + [tronqué - {len(text) - max_chars}]"
+    return text
